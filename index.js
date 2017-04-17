@@ -53,7 +53,13 @@ export default  class Road extends React.Component{
       this.setState({
         routeStack:this.state.routeStack
       },()=>{
-        this._transitionTo(this.activeIndexRoute)
+        this._transitionTo(this.activeIndexRoute,()=>{
+
+          if(this.props.onRouteChange){
+            this.props.onRouteChange(this.state.routeStack,this.activeIndexRoute)
+         }
+
+      })
       })
     }
     pop(){
@@ -66,6 +72,12 @@ export default  class Road extends React.Component{
                   this.state.routeStack.length  = this.activeIndexRoute+1;
                   this.setState({
                         routeStack:this.state.routeStack
+                  },()=>{
+
+                      if(this.props.onRouteChange){
+                            this.props.onRouteChange(this.state.routeStack,this.activeIndexRoute)
+                        }
+
                   })
         })
     }
